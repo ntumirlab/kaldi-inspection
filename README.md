@@ -62,4 +62,5 @@
 ## Todo
 
 1. 列表頁重新排版
-2. kaldi.py code整理，fetchPerUtt & fetchCriterionList應該可簡化
+2. kaldi.py code debug，\_getAudioPosInScp 優化，現在不支援 flac 格式
+3. kaldi.py code 整理，fetchPerUtt & fetchCriterionList 應該可簡化
