@@ -58,3 +58,8 @@
 ## Notes
 
 1. 目前針對取得 audio resource 的方法非常 workaround，需要 flask server 與 corpus 在同一個 server，且只針對 wav 檔處理。
+
+## Todo
+
+1. 列表頁重新排版
+2. kaldi.py code整理，fetchPerUtt & fetchCriterionList應該可簡化
