@@ -31,6 +31,7 @@ def fetchList():
             content=None
         )
     content = kaldi.fetchPerUtt(param)
+    content['criterion_file'] = kaldi.fetchCriterionList(param)
     if not content:
         success = False
         message = "decode id or data does not exist"

@@ -95,6 +95,22 @@ def _getAudioInfo(uttid, decode_dir):
     audioInfo = {'wav': wav_relative_path, 'segments': segmentsTimes}
     return audioInfo ;
 
+# get sorted utterences decode result
+def fetchCriterionList(param):
+    decode_dir = param['decode_id']
+    decode_folder = app.config['DECODES_FOLDER']
+
+    static_folder = os.path.join("./static/result", decode_dir)
+    static_list_file = os.path.join(static_folder, param['criterion']+"_list.txt")
+    if not os.path.exists( static_list_file ) :
+        origin_list_file = os.path.join(decode_folder, decode_dir, "criterion_list", param['criterion']+"_list.txt")
+        if not os.path.exists( origin_list_file ) :
+            return ""
+        if not os.path.exists( static_folder ) :
+            os.makedirs( static_folder )
+        os.symlink(origin_list_file, static_list_file)
+    return static_list_file
+
 # get utterences info. as a list
 def fetchPerUtt(param):
     content = {'utts': {}}

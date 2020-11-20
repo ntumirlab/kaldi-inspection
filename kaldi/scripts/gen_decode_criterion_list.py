@@ -73,14 +73,14 @@ def readPeruttFile( per_utt ) :
         # get ref, hyp, csid
         ref = removeMulitSpace( line ).strip().split(' ')
         hyp = removeMulitSpace( next(f) ).strip().split(' ')
-        next( f ) # skip op
+        ops = removeMulitSpace( next(f) ).strip().split(' ')
         csid = removeMulitSpace( next(f) ).strip().split(' ')
-        if ref[0] != hyp[0] or hyp[0] != csid[0] :
+        if ref[0] != hyp[0] or hyp[0] != ops[0] or ops[0] != csid[0] :
             raise Exception("reading per_utt Error : data not match.")
         
         uttid = ref[0]
         errorRate = criterionErrorRate( csid[2:] ) # get criterion error rate
-        uttDict[ uttid ] = {"uttid": uttid, "ref": ref[2:], "hyp": hyp[2:], "csid": csid[2:], "cer": errorRate}
+        uttDict[ uttid ] = {"uttid": uttid, "ref": ref[2:], "hyp": hyp[2:], "ops": ops[2:], "csid": csid[2:], "cer": errorRate}
     f.close()
     
     return uttDict ;
@@ -148,6 +148,8 @@ def savePeruttDict( perUttList , criterion , save_file ) :
         f.write( uttid + "\n" )
         f.write( "wav_file " + utt_info["wavPath"] + "\n" )
         f.write( criterion + " " + format(utt_info["cer"], ".4f") + "\n" )
+        f.write( "csid " + ' '.join(utt_info["csid"]) + "\n" )
+        f.write( "ops " + ' '.join(utt_info["ops"]) + "\n" )
         f.write( "ref " + ' '.join(utt_info["ref"]) + "\n" )
         f.write( "hyp " + ' '.join(utt_info["hyp"]) + "\n" )
         if utt_info["segments"] :

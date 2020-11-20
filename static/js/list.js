@@ -33,7 +33,16 @@ $('#list-fetch-form').on('submit', function (event) {
       },
     }).done(data => {
       if (data.success) {
-        $("#listInfo").html("<h3 id=\"decode_id\" name=\"" + decode_id + "\"> result of " + decode_id + " (overall WER: " + data.content.wer + ")</h4>");
+        if (data.content['error'] != null){
+            $("#listInfo").html(data.content['error']);
+            $("#listWrapper").html("");
+            return false;
+        }
+        listInfoHtml = "<h3 id=\"decode_id\" name=\"" + decode_id + "\"> result of " + decode_id + " (overall WER: " + data.content.wer + "%)</h3>";
+        if (data.content.criterion_file != "") {
+            listInfoHtml += "<h5><a href=" + data.content.criterion_file + " target=\"_blank\">download result file</a></h5>";
+        }
+        $("#listInfo").html(listInfoHtml);
         $("#listWrapper").html("");
         listResult( data , quantity );
       }
