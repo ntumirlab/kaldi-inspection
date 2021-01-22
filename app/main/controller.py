@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from . import main
 from flask import request, jsonify, redirect
 from flask import send_from_directory

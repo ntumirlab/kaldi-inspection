@@ -49,7 +49,11 @@ def criterionErrorRate( csidList ) :
     i = int(csidList[2])
     d = int(csidList[3])
     
-    errorRate = ( s + i + d ) / ( c + s + d )
+    errorRate = -1
+    if c + s + d > 0 :
+        errorRate = ( s + i + d ) / ( c + s + d )
+    else :  # empty reference but non-empty decode result
+        errorRate = i
     return errorRate
 
 # get audio path position in a list split of space from wav.scp
