@@ -131,7 +131,7 @@ def fetchPerUtt(param):
             with open(per_utt, "r", encoding="utf-8") as fp:
                 lines = fp.read().splitlines()
             for line in lines:
-                tokens = line.split()
+                tokens = line.replace("<","&#60;").replace(">","&#62;").split()
                 if count == 0:
                     content['utts'][tokens[0]] = {}
                 if count == 3:
